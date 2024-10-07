@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apod</title>
+</head>
+<body>
+      <!-- include navbar from partials -->
+      {% include "./partials/nav.html" ignore missing with context %}
+         
+     
+      
+      {% if apod_data %}
+      <h1>NASA Astronomical Picture of the Day {{ apod_data.date }}</h1>
+  
+          <!-- Display the APOD image if media_type is 'image' -->
+          {% if apod_data.media_type == "image" %}
+              <img src="{{ apod_data.url }}" alt="{{ apod_data.title }}" style="max-width:100%;">
+              
+          {% else %}
+              <p>Media type not supported: {{ apod_data.media_type }}</p>
+          {% endif %}
+  
+          <p>{{ apod_data.explanation }}</p>
+          <!-- Attribution for the image -->
+          <p><em>Image source:NASA, <a href="https://apod.nasa.gov/apod/" target="_blank">https://apod.nasa.gov/apod/</a></em></p>
+      {% else %}
+          <p>{{ error }}</p>
+      {% endif %}
+            
+        <!-- Load common CSS and JS -->
+        {% include "./partials/dependencies.html" ignore missing with context %}
+</body>
+</html>
